@@ -1,0 +1,34 @@
+You must include a README.md file in your repository explaining briefly the
+project and how to run it.
+• The game is played on a 4x4 grid, where each cell can contain a tile with a value
+that is a power of 2 (e.g., 2, 4, 8, up to 2048).
+• Initial Setup: The game starts with two tiles randomly placed on the grid, each
+with a value of either 2 or 4.
+• User Input: Players use the keyboard arrow keys to move tiles in the following
+directions:
+◦ Up Arrow: Move tiles up.
+◦ Down Arrow: Move tiles down.
+◦ Left Arrow: Move tiles left.
+◦ Right Arrow: Move tiles right.
+• Tile Movement: Tiles slide as far as possible in the chosen direction until they
+hit the edge of the grid or another tile.
+• Merging Rules:
+◦ When two tiles with the same value collide, they merge into one tile with a
+value equal to their sum.
+◦ Merging increases the player’s score by the value of the merged tile.
+6
+Globant Piscine 2048
+◦ Merging happens only once per move per tile.
+• Score Tracking: The player’s current score is displayed and updates with every
+merge.
+• End Game Condition:
+◦ The game ends when the grid is full and no valid moves are possible (i.e., no
+adjacent tiles can merge).
+◦ A "Game Over" message notifies the player, with an option to restart the game.
+• Winning Condition:
+◦ Players win the game by creating a tile with the value of 2048.
+• Restart Functionality: A "Restart" button allows players to reset the game to
+its initial state.
+• Visual Feedback:
+◦ Provide animations for tile movement and merging.
+◦ Display messages for winning and game over scenarios using alerts or modals

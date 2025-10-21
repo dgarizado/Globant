@@ -16,6 +16,15 @@
 <div class="grid-container">
 <!-- The grid will be filled by JavaScript -->
 </div>
+	<!-- Modal / overlay for messages (win / game over) -->
+	<div id="message" class="overlay hidden" role="dialog" aria-modal="true" aria-labelledby="message-text">
+		<div class="modal">
+			<p id="message-text"></p>
+			<div class="modal-actions">
+				<button id="modal-restart">Restart</button>
+			</div>
+		</div>
+	</div>
 </div>
 <script src="script.js"></script>
 </body>
