@@ -7,14 +7,11 @@ import shadowUrl from 'leaflet/dist/images/marker-shadow.png'
 
 type UIPlace = { id: string; name: string; reason?: string; lat?: number; lng?: number }
 
-
-
 L.Icon.Default.mergeOptions({
   iconRetinaUrl,
   iconUrl,
   shadowUrl,
 })
-
 
 const defaultMarkerIcon = new L.Icon({
   iconUrl: iconUrl as string,
@@ -33,15 +30,14 @@ type Props = {
   onSelect?: (id: string) => void
 }
 
-// Controller component that has access to the map instance and marker refs.
-// It recenters the map to the selected marker and opens its popup.
+
 function MapController({ selectedId, markerRefs, markers }: { selectedId?: string | null; markerRefs: React.MutableRefObject<Record<string, L.Marker>>; markers: UIPlace[] }) {
   const map = useMap()
 
   useEffect(() => {
     if (!selectedId) return
 
-    // find the selected marker coordinates from the markers array
+    
     const sel = markers.find((m) => m.id === selectedId && typeof m.lat === 'number' && typeof m.lng === 'number')
     if (!sel) return
 
@@ -55,12 +51,12 @@ function MapController({ selectedId, markerRefs, markers }: { selectedId?: strin
 
       map.setView([centerLatLng.lat, centerLatLng.lng], targetZoom, { animate: true })
 
-      // try to open popup when marker ref becomes available
+      
       let attempts = 0
       const tryOpen = () => {
         const marker = markerRefs.current[selectedId]
         if (marker && (marker as any).openPopup) {
-          try { ;(marker as any).openPopup() } catch (e) { /* ignore */ }
+          try { ;(marker as any).openPopup() } catch (e) { console.error('Error opening popup', e) }
           return
         }
         attempts += 1
@@ -69,7 +65,7 @@ function MapController({ selectedId, markerRefs, markers }: { selectedId?: strin
 
       setTimeout(tryOpen, 250)
     } catch (e) {
-      // ignore errors
+      console.error('Error centering map', e)
     }
   }, [selectedId, markerRefs, map, markers])
 
@@ -91,7 +87,7 @@ export default function Map({ markers = [], selectedId, onSelect }: Props) {
       try {
         ;(marker as any).openPopup()
       } catch (e) {
-        // ignore
+        console.error('Error opening popup', e)
       }
     }
   }, [selectedId])
