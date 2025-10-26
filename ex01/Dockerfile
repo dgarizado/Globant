@@ -1,7 +1,7 @@
 FROM node:18-slim
 WORKDIR /app
 COPY package.json package-lock.json* ./
-RUN npm ci --omit=dev || npm install
+RUN npm ci || npm install
 COPY . .
 RUN npm run build
 EXPOSE 5173
