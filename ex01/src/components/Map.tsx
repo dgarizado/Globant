@@ -1,12 +1,13 @@
 import React, { useEffect, useRef } from 'react'
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'
 import L from 'leaflet'
-import type { Suggestion } from '../lib/mockPlanner'
-
-// Fix leaflet's default icon path when bundlers copy assets differently
 import iconUrl from 'leaflet/dist/images/marker-icon.png'
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png'
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png'
+
+type UIPlace = { id: string; name: string; reason?: string; lat?: number; lng?: number }
+
+
 
 L.Icon.Default.mergeOptions({
   iconRetinaUrl,
@@ -14,26 +15,86 @@ L.Icon.Default.mergeOptions({
   shadowUrl,
 })
 
+
+const defaultMarkerIcon = new L.Icon({
+  iconUrl: iconUrl as string,
+  iconRetinaUrl: iconRetinaUrl as string,
+  shadowUrl: shadowUrl as string,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  tooltipAnchor: [16, -28],
+  shadowSize: [41, 41],
+})
+
 type Props = {
-  markers?: Suggestion[]
+  markers?: UIPlace[]
   selectedId?: string | null
   onSelect?: (id: string) => void
 }
 
-function Recenter({ lat, lng }: { lat: number; lng: number }) {
+// Controller component that has access to the map instance and marker refs.
+// It recenters the map to the selected marker and opens its popup.
+function MapController({ selectedId, markerRefs, markers }: { selectedId?: string | null; markerRefs: React.MutableRefObject<Record<string, L.Marker>>; markers: UIPlace[] }) {
   const map = useMap()
+
   useEffect(() => {
-    map.setView([lat, lng], map.getZoom(), { animate: true })
-  }, [lat, lng, map])
+    if (!selectedId) return
+
+    // find the selected marker coordinates from the markers array
+    const sel = markers.find((m) => m.id === selectedId && typeof m.lat === 'number' && typeof m.lng === 'number')
+    if (!sel) return
+
+    try {
+      const latlng = L.latLng(sel.lat as number, sel.lng as number)
+      const targetZoom = Math.max(map.getZoom(), 14)
+
+      const offsetY = 100
+      const point = map.project(latlng, targetZoom).subtract(L.point(0, offsetY))
+      const centerLatLng = map.unproject(point, targetZoom)
+
+      map.setView([centerLatLng.lat, centerLatLng.lng], targetZoom, { animate: true })
+
+      // try to open popup when marker ref becomes available
+      let attempts = 0
+      const tryOpen = () => {
+        const marker = markerRefs.current[selectedId]
+        if (marker && (marker as any).openPopup) {
+          try { ;(marker as any).openPopup() } catch (e) { /* ignore */ }
+          return
+        }
+        attempts += 1
+        if (attempts < 6) setTimeout(tryOpen, 200)
+      }
+
+      setTimeout(tryOpen, 250)
+    } catch (e) {
+      // ignore errors
+    }
+  }, [selectedId, markerRefs, map, markers])
+
   return null
 }
 
 export default function Map({ markers = [], selectedId, onSelect }: Props) {
   const first = markers[0]
-  const center: [number, number] = first ? [first.lat, first.lng] : [48.8566, 2.3522]
+  const center: [number, number] = first && typeof first.lat === 'number' && typeof first.lng === 'number' ? [first.lat, first.lng] : [48.8566, 2.3522]
 
-  // reference to marker instances if needed
+  
   const markerRefs = useRef<Record<string, L.Marker>>({})
+
+  
+  React.useEffect(() => {
+    if (!selectedId) return
+    const marker = markerRefs.current[selectedId]
+    if (marker && (marker as any).openPopup) {
+      try {
+        ;(marker as any).openPopup()
+      } catch (e) {
+        // ignore
+      }
+    }
+  }, [selectedId])
 
   return (
     <div className="mt-4 h-64 rounded-lg overflow-hidden border border-slate-200">
@@ -42,10 +103,11 @@ export default function Map({ markers = [], selectedId, onSelect }: Props) {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        {markers.map((m) => (
+        {markers.filter((m) => typeof m.lat === 'number' && typeof m.lng === 'number').map((m) => (
           <Marker
             key={m.id}
-            position={[m.lat, m.lng]}
+            position={[m.lat as number, m.lng as number]}
+            icon={defaultMarkerIcon}
             eventHandlers={{ click: () => onSelect?.(m.id) }}
             ref={(el: L.Marker | null) => {
               if (el) markerRefs.current[m.id] = el
@@ -58,10 +120,7 @@ export default function Map({ markers = [], selectedId, onSelect }: Props) {
           </Marker>
         ))}
 
-        {selectedId && markers.length > 0 && (() => {
-          const sel = markers.find((m) => m.id === selectedId)
-          return sel ? <Recenter lat={sel.lat} lng={sel.lng} /> : null
-        })()}
+        {selectedId && markers.length > 0 && <MapController selectedId={selectedId} markerRefs={markerRefs} markers={markers} />}
       </MapContainer>
     </div>
   )

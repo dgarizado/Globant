@@ -1,10 +1,11 @@
 import React from 'react'
-import type { Suggestion } from '../lib/mockPlanner'
+
+type UIPlace = { id: string; name: string; reason?: string; lat?: number; lng?: number }
 
 type Props = {
   loading: boolean
   resultsText: string | null
-  suggestions: Suggestion[]
+  suggestions: UIPlace[]
   selectedId?: string | null
   onSelect?: (id: string) => void
 }
@@ -26,7 +27,7 @@ export default function Results({ loading, resultsText, suggestions, selectedId,
                   className={`w-full text-left p-2 rounded-md ${selectedId === s.id ? 'bg-sky-50 ring-1 ring-sky-200' : 'hover:bg-slate-50'}`}
                 >
                   <div className="font-semibold">{s.name}</div>
-                  <div className="text-sm text-slate-600">{s.reason}</div>
+                  {s.reason && <div className="text-sm text-slate-600">{s.reason}</div>}
                 </button>
               </li>
             ))}

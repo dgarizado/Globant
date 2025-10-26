@@ -1,2 +1,0 @@
-# Globant
-Globant Frontend Piscine
