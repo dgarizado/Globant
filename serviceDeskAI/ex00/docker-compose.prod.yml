@@ -1,0 +1,22 @@
+services:
+  frontend:
+    build:
+      target: production
+    ports:
+      - '8800:80'
+    command: npm start
+    environment:
+      - NODE_ENV=production
+
+  backend:
+    build:
+      target: production
+    ports:
+      - '5000:5000'
+    command: npm start
+    environment:
+      - NODE_ENV=production
+
+  database:
+    
+    restart: always

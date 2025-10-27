@@ -1,0 +1,29 @@
+version: '3.9'
+
+services:
+  # frontend:
+  #   build:
+  #     context: ./frontend
+  #   networks:
+  #     - globant_network
+
+  backend:
+    build:
+      context: ./backend
+    networks:
+      - globant_network
+
+  database:
+    image: mongo:latest
+    container_name: database
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - globant_network
+
+volumes:
+  mongo-data: {}
+
+networks:
+  globant_network:
+    driver: bridge

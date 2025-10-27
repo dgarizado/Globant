@@ -1,0 +1,222 @@
+Globant Piscine
+ServiceDeskAI
+Summary: Because even AI knows the printer’s always broken.
+Version: 2
+Contents
+I A word about this Project 2
+II Introduction 3
+III General instructions 4
+IV Glossary 5
+V Mandatory part 7
+VI Bonus Part 10
+VII Resources 11
+VIII Submission 13
+1
+Chapter I
+A word about this Project
+The goal of this project is to develop a mobile-first application that simplifies the process
+of reporting issues or damaged items in Glober offices and homes. By leveraging geolocation, machine learning, and other smart technologies, the app aims to make problem
+reporting faster, smarter, and more intuitive.
+The platform includes three user profiles: the standard user, who can create new
+tickets, upload photos or videos, and track the status of their reports; the service desk
+user, who can manage tickets, update their status, close them, and communicate with
+users through chat; and the admin user, who can create new users and offices, and
+access all reports and analytics across the system.
+2
+Chapter II
+Introduction
+What this Project will show you:
+• Developing a mobile-first application application for reporting problems and
+damaged items.
+• Using geolocation and machine learning to streamline reporting.
+• Implementing secure user authentication with JWT for secure API access.
+• Designing an app that meets WCAG AA accessibility standards.
+• Managing multiple user roles: Standard Users, Service Desk, and Admin.
+• Creating reports with personal data, location, and media attachments.
+• Sharing reports via email and viewing report history by status.
+• Adding features like chat, admin controls, offline mode, and dark mode.
+• Enhancing the app with image recognition and AI-driven intelligence using APIs
+like Google Cloud Vision.
+• Setting up a complete development environment using using Docker and Docker
+Compose.
+• Gaining experience in building, running, and deploying production-grade applications.
+3
+Chapter III
+General instructions
+Unless explicitely specified, the following rules will apply for every project of this Piscine.
+• This subject is the one and only trustable source. Don’t trust any rumor.
+• This subject can be updated up to one hour before the turn-in deadline.
+• The assignments in a subject must be done in the given order. Later assignments
+won’t be rated unless all the previous ones are perfectly executed.
+• Be careful about the access rights of your files and folders.
+• Your assignments WON’T be evaluated by your Piscine peers.
+• You must not leave in your turn-in your workspace any file other than the ones
+explicitly requested By the assignments. If the assignment don’t precise them, put
+only the necessary ones to run your Project.
+• Using some API Key or Token? Keep them for you! Do not push them on your
+repository.
+• You have a question? Ask your left neighbor. Otherwise, try your luck with your
+right neighbor.
+• Every technical answer you might need is available in the man or on the Internet.
+• You must read the examples thoroughly. They can reveal requirements that are not
+obvious in the assignment’s description.
+• By Loki, by Freya! Use your brain!!!
+4
+Chapter IV
+Glossary
+This glossary is designed to help you quickly understand the main technologies and concepts you will work with in ServiceDeskAI. In Chapter VII, you’ll find extra resources
+and tutorials to get started confidently.
+• React: A JavaScript library for building interactive user interfaces based on reusable
+components. It enables the creation of dynamic and efficient web applications.
+• Redux: A predictable state management library for JS apps, often used with React
+to handle global application state.
+• Geolocation API: A browser API that allows web applications to access the user’s
+geographical location using GPS or network information.
+• Google Cloud Vision / Azure AI Vision: AI APIs capable of analyzing and
+recognizing objects, text, and features in uploaded images.
+• Socket.io / Firebase: Real-time communication technologies that can be used to
+implement chat functionality between users.
+• PWA (Progressive Web App): A web application that behaves like a native
+mobile app. It can work offline, send push notifications, and be installed on devices.
+• Tailwind CSS: A utility-first CSS framework that enables fast creation of responsive and customizable user interfaces.
+• WCAG (Web Content Accessibility Guidelines): A set of international standards to ensure websites and apps are accessible to users with disabilities.
+• Node.js: A JavaScript runtime environment that executes code outside the browser,
+commonly used for building scalable server-side applications and APIs.
+• Express.js: A minimal and flexible Node.js web framework used to create serverside routes and handle HTTP requests.
+• MongoDB: A NoSQL, document-oriented database ideal for storing unstructured
+data such as tickets, reports, and user profiles.
+• JWT (JSON Web Token): A secure method for transmitting and validating
+user authentication data between the client and server using signed tokens.
+5
+Globant Piscine ServiceDeskAI
+• Docker: A platform that packages applications and their dependencies into isolated
+containers to ensure consistency across environments.
+• Docker Compose: A tool to define and manage multiple Docker containers with
+a single configuration file.
+6
+Chapter V
+Mandatory part
+Exercise 00
+ServiceDeskAI
+Turn-in directory : ex00/
+Files to turn in : All needed files to run your Project and nothing else
+Allowed functions : None
+The goal of this project is to add as much intelligence as possible to the reporting of
+damaged or malfunctioning items. Features such as geolocation, object recognition
+and image tagging should enhance the process and make reporting effortless and smart.
+The smarter the final solution, the better.
+You are encouraged to experiment with AI-based APIs like Google Cloud Vision
+or Azure AI Vision to enrich the experience and automate the detection of objects or
+issues in uploaded images.
+• You must include a README.md file in your repository explaining briefly the
+project and how to run it.
+• Docker is mandatory for this project. You must provide a Dockerfile and a dockercompose.yml file to run your project.
+• The app must support three user profiles
+◦ Standard user: Can submit new tickets, upload photos/videos, and track
+the status of reports.
+◦ Service desk user: Can receive tickets, update their status, close them, and
+open chats with standard users.
+◦ Admin user: Can create new users and offices, view all relevant information,
+and access all system data.
+• Technology Stack (JavaScript)
+7
+Globant Piscine ServiceDeskAI
+◦ Back End: Node.js + Express + MongoDB for data management, API creation, and secure request handling.
+◦ Front End: React + Redux for state management and dynamic user interface.
+• Must-Have Features
+◦ User Authentication: Implement JWT token handling to secure API requests and validate user sessions for logins.
+◦ Mobile-First Design: Ensure the interface is optimized for mobile devices,
+while maintaining responsiveness on desktop screens.
+◦ Accessibility: Follow WCAG AA accessibility guidelines to make the app
+usable for all users.
+◦ Profile Management: Allow users to view and edit their personal data,
+preferences, and favorite office/workstation for quicker ticket creation.
+◦ Report Submission: Enable users to include necessary personal data, specify
+the affected office/desk, attach media (images or videos), and capture the exact
+geolocation of the incident.
+◦ Report Sharing: Implement a sharing mechanism via email to notify others
+or escalate incidents.
+◦ Report History: Display open and closed tickets separately, showing the
+status of each report (e.g., open, assigned, in progress, closed).
+Remember that you are supposed to use Docker and you can also use it
+in your development environment. Devcontainers are your friends.
+You can use http://stable-diffusion.42malaga.com:7860/
+Interrogator -> Analyze for this project. The API endpoint is POST
+/interrogator/analyze
+Other good links to check out: Progressive web apps and CSS Dark
+Mode
+In any of the projects that require the consumption of an API you
+can leverage the use of a library to help you with it like swe or
+TanStack Query
+8
+Globant Piscine ServiceDeskAI
+Figure V.1: Example UI for the project.
+9
+Chapter VI
+Bonus Part
+Once mandatory requirements are implemented in the application, you can add any
+additional features you see fit. Here a quick list of suggestions to give you ideas.
+• In-app chat within tickets for communication between users and service desk staff.
+• Admin module for managing tickets, generating reports, and overseeing users and
+offices.
+• Add profile photo upload via file or camera.
+• Enable dffline mode (PWA).
+• Implement dark mode for better user experience.
+Those are only examples. The sky’s the limit so again, once
+mandatory functional requirements are met, we are open to any
+additional functionalities you see fit.
+10
+Chapter VII
+Resources
+This chapter provides a collection of useful resources to help you get started with the
+technologies used in this project.
+You’ll find links to articles, tutorials, and videos — both in English and Spanish — as
+well as simple code examples to help you understand key concepts and start experimenting
+on your own.
+These materials are meant to guide you a little if you get stuck, but we highly recommend that you keep exploring on your own.
+• Node.js + Express
+◦ Node.js Official Documentation
+◦ Express.js Official Documentation
+◦ Article 1
+◦ Article 2
+◦ Article 3
+◦ Video 1
+◦ Video 2
+• MongoDB
+◦ Tutorial
+◦ Video
+◦ Article 1
+◦ Article 2
+• Redux
+◦ Article 1
+◦ Article 2
+11
+Globant Piscine ServiceDeskAI
+◦ Video
+This example is provided only as a basic illustration of how Redux work. It does
+not include the full setup.
+import { createStore } from ’redux’;
+const initialState = { tickets: [] };
+function ticketReducer(state = initialState, action) {
+switch (action.type) {
+case ’ADD_TICKET’:
+return { ...state, tickets: [...state.tickets, action.payload] };
+default:
+return state;
+}
+}
+const store = createStore(ticketReducer);
+store.dispatch({ type: ’ADD_TICKET’, payload: { id: 1, title: ’Fix AC’ } });
+console.log(store.getState());
+12
+Chapter VIII
+Submission
+• Create a git repo (Github, Gitlab, Bitbucket, etc) and add your project files to it.
+• Copy the link to your repository and paste it in the project submission form.
+• Project submission form: TYPEFORM
+Please note, no modifications made on the repo after the form is sent
+will be taken into account for the evaluation.
+No Peer evaluation for this Piscine, but we strongly recommend
+reviewing and using the evaluation sheet we give you to check if
+your project meets all the requirements.
+13

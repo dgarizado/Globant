@@ -1,0 +1,29 @@
+services:
+  # frontend:
+  #   build:
+  #     target: development
+  #   ports:
+  #     - '8080:5173'
+  #   volumes:
+  #     - ./frontend:/app
+  #     - /app/node_modules
+  #   command: npm run dev
+  #   environment:
+  #     - NODE_ENV=development
+
+  backend:
+    build:
+      context: ./backend  
+      target: development
+    ports:
+      - '5000:5000'
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    command: npm run dev
+    environment:
+      - NODE_ENV=development
+
+  database:
+    ports:
+      - '27017:27017'
