@@ -6,7 +6,7 @@
 /*   By: dgarizad <dgarizad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 09:59:44 by dgarizad          #+#    #+#             */
-/*   Updated: 2025/10/30 10:47:05 by dgarizad         ###   ########.fr       */
+/*   Updated: 2025/10/30 23:00:55 by dgarizad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ const startServer = async () => {
     await seedAdminUser(); 
     app.listen(PORT, () => console.log(`Server on port ${PORT}`));
   } catch (error) {
-    console.error("❌ Failed to start server:", error.message);
+    console.error("Failed to start server:", error.message);
     process.exit(1);
   }
 };

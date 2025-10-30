@@ -6,7 +6,7 @@
 /*   By: dgarizad <dgarizad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 09:58:18 by dgarizad          #+#    #+#             */
-/*   Updated: 2025/10/30 10:03:55 by dgarizad         ###   ########.fr       */
+/*   Updated: 2025/10/30 22:47:20 by dgarizad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,15 @@ export const createTicket = async (req, res) => {
     const { title, description } = req.body;
     const userId = req.user.id;
 
-    const ticket = new Ticket({ title, description, userId });
+    const ticketData = { title, description, userId };
+
+    // If a file was uploaded via multer it will be available as req.file
+    if (req.file) {
+      // store relative url to the uploads folder
+      ticketData.media = [`/uploads/${req.file.filename}`];
+    }
+
+    const ticket = new Ticket(ticketData);
     const savedTicket = await ticket.save();
 
     res.status(201).json(savedTicket);

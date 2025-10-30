@@ -3,3 +3,47 @@
 html, body, #root {
   height: 100%;
 }
+
+/* Design tokens and semantic classes centralized here so all components
+   use the same styles. These use Tailwind's @apply to keep markup clean. */
+
+.page {
+  @apply space-y-6 max-w-lg mx-auto;
+}
+
+.title {
+  @apply text-2xl font-semibold text-center;
+}
+
+.card {
+  @apply p-6 rounded-md border bg-gray-400 shadow-sm;
+}
+
+.input {
+  @apply mt-1 block w-full rounded-md bg-gray-200 border px-3 py-2;
+}
+
+.btn-primary {
+  @apply px-4 py-2 bg-gray-600 text-white rounded-md font-medium;
+}
+
+.btn-secondary {
+  @apply px-4 py-2 border rounded-md text-slate-700 bg-white font-medium;
+}
+
+.btn-ghost {
+  @apply text-sm text-slate-600 underline bg-transparent;
+}
+
+.note {
+  @apply text-xs text-slate-500 pt-3;
+}
+
+.muted {
+  @apply text-sm text-slate-700;
+}
+
+.ticket-card {
+  @apply p-3 bg-white rounded shadow-sm;
+}
+

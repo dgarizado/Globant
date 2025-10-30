@@ -6,7 +6,7 @@
 /*   By: dgarizad <dgarizad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 10:00:03 by dgarizad          #+#    #+#             */
-/*   Updated: 2025/10/30 10:00:04 by dgarizad         ###   ########.fr       */
+/*   Updated: 2025/10/30 22:47:19 by dgarizad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ const ticketSchema = new mongoose.Schema({
   status: { type: String, enum: ['open', 'in_progress', 'closed'], default: 'open' },
   createdAt: { type: Date, default: Date.now },
   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  media: [{ type: String }],
 });
 
 const Ticket = mongoose.model('Ticket', ticketSchema);

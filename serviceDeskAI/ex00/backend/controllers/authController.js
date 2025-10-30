@@ -6,7 +6,7 @@
 /*   By: dgarizad <dgarizad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 09:58:45 by dgarizad          #+#    #+#             */
-/*   Updated: 2025/10/30 19:44:43 by dgarizad         ###   ########.fr       */
+/*   Updated: 2025/10/30 21:48:05 by dgarizad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ export const login = async (req, res) => {
     const token = jwt.sign({ userId: user._id, email: user.email, role: user.role }, 
     process.env.JWT_SECRET, { expiresIn: '1h' });
 
-    res.json({ message: 'Login successful', token, user: { id: user._id, name: user.name, email: user.email } });
+    res.json({ message: 'Login successful', token, user: { id: user._id, name: user.name, email: user.email, role: user.role } });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

@@ -33,8 +33,8 @@ export default function Login({ onLogin }: { onLogin: () => void }) {
   };
 
   return (
-    <section className="max-w-md">
-      <h2 className="text-xl font-semibold mb-2">Login</h2>
+    <section className="page max-w-md">
+      <h2 className="title mb-2">Login</h2>
       <form onSubmit={submit} className="space-y-3">
         {error && <div className="text-red-600">{error}</div>}
         <label className="block">
@@ -42,7 +42,7 @@ export default function Login({ onLogin }: { onLogin: () => void }) {
           <input
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full border px-2 py-1 rounded"
+            className="input"
             type="email"
           />
         </label>
@@ -51,12 +51,12 @@ export default function Login({ onLogin }: { onLogin: () => void }) {
           <input
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full border px-2 py-1 rounded"
+            className="input"
             type="password"
           />
         </label>
         <div>
-          <button className="px-3 py-2 bg-blue-600 text-white rounded" disabled={loading}>
+          <button className="btn-primary" disabled={loading}>
             {loading ? 'Signing in…' : 'Sign in'}
           </button>
         </div>

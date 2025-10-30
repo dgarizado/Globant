@@ -25,3 +25,4 @@ ps:
 
 clean:
 	$(COMPOSE) $(BASE) $(DEV) down -v --rmi all --remove-orphans
+	rm -rf backend/uploads/*
