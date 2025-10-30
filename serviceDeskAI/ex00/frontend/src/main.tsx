@@ -5,6 +5,8 @@ import './styles.css';
 
 createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <App />
+    <div className="min-h-screen bg-slate-50 text-slate-900">
+      <App />
+    </div>
   </React.StrictMode>
 );

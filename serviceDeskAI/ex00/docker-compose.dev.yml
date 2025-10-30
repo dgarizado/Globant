@@ -7,10 +7,11 @@ services:
       - '5173:5173'
     volumes:
       - ./frontend:/app
-      - /app/node_modules
+      - node_modules_frontend:/app/node_modules
     command: npm run dev
     environment:
       - NODE_ENV=development
+      - VITE_DEV_API_PROXY=http://backend:5000
 
   backend:
     build:
@@ -20,7 +21,7 @@ services:
       - '5000:5000'
     volumes:
       - ./backend:/app
-      - /app/node_modules
+      - node_modules_backend:/app/node_modules
     command: npm run dev
     environment:
       - NODE_ENV=development
@@ -28,3 +29,7 @@ services:
   database:
     ports:
       - '27017:27017'
+
+volumes:
+  node_modules_frontend:
+  node_modules_backend:

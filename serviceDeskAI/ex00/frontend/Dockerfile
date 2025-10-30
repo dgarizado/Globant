@@ -1,25 +1,41 @@
-# Stage 1 — builder
-FROM node:20-alpine AS builder
+
+## -----------------------------
+# BASE IMAGE
+## -----------------------------
+FROM node:20-alpine AS base
 WORKDIR /app
-
-# Install deps
 COPY package*.json ./
-RUN npm ci
 
-# Copy sources and build
+## -----------------------------
+# DEVELOPMENT STAGE
+## -----------------------------
+FROM base AS development
+
+RUN npm ci
+COPY . .
+ENV NODE_ENV=development
+EXPOSE 5173
+CMD ["npm", "run", "dev"]
+
+## -----------------------------
+# BUILDER (production build)
+## -----------------------------
+FROM base AS builder
+RUN npm ci
 COPY . .
 RUN npm run build
 
-# Stage 2 — runtime (nginx)
-FROM nginx:stable-alpine AS runner
-# Remove default nginx static content
+## -----------------------------
+# RUNTIME (nginx static server)
+## -----------------------------
+
+FROM nginx:stable-alpine AS production
+
 RUN rm -rf /usr/share/nginx/html/*
 
-# Copy built files
+
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Optional: copy a custom nginx config for SPA fallback (see note below)
-# COPY docker/nginx.frontend.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]

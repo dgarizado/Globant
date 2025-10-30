@@ -2,17 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Minimal styles for TripRecommendator scaffold */
+
 html,body,#root{height:100%;margin:0}
 body{font-family:system-ui,Arial,Helvetica,sans-serif;background:#f7fafc;color:#111}
 h1{font-size:20px}
 
-/* additions for the scaffold demo */
 @media (max-width: 480px){
   main { padding: 12px; }
   h1 { font-size: 18px; }
 }
 
-/* Ensure map container (which uses Tailwind h-64) gets a real height
-   even if Tailwind fails for some reason: fallback CSS. */
 .leaflet-container, .map-root { min-height: 16rem; }
