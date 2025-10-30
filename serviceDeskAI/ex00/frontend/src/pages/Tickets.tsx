@@ -15,7 +15,7 @@ export default function Tickets() {
   useEffect(() => {
     const load = async () => {
       try {
-        const res = await fetch('/api/tickets'); // proxied by Vite in dev
+        const res = await fetch('/api/tickets'); 
         if (!res.ok) throw new Error('Failed to fetch tickets');
         const data = await res.json();
         setTickets(data);

@@ -6,7 +6,7 @@
 /*   By: dgarizad <dgarizad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 09:58:45 by dgarizad          #+#    #+#             */
-/*   Updated: 2025/10/30 09:58:46 by dgarizad         ###   ########.fr       */
+/*   Updated: 2025/10/30 19:44:43 by dgarizad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
-
+    console.log("Login attempt:", email);
     if (!email || !password) {
       return res.status(400).json({ message: 'Email and password are required' });
     }

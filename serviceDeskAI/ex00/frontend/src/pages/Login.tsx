@@ -21,11 +21,10 @@ export default function Login({ onLogin }: { onLogin: () => void }) {
         throw new Error(body.message || 'Login failed');
       }
       const data = await res.json();
-      // store token for later requests
       if (data.token) {
         localStorage.setItem('sd_token', data.token);
       }
-      onLogin();
+      // onLogin();
     } catch (err: any) {
       setError(err.message || 'Unknown error');
     } finally {
