@@ -1,20 +1,22 @@
 version: '3.9'
 
 services:
-  # frontend:
-  #   build:
-  #     context: ./frontend
-  #   networks:
-  #     - globant_network
+  frontend:
+    build:
+      context: ./frontend
+    networks:
+      - globant_network
 
   backend:
+    env_file:
+      - ./backend/.env
     build:
       context: ./backend
     networks:
       - globant_network
 
   database:
-    image: mongo:latest
+    image: mongo:8.0
     container_name: database
     volumes:
       - mongo-data:/data/db
