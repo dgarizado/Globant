@@ -35,7 +35,7 @@ export const getTickets = async (req, res) => {
       tickets = await Ticket.find().populate("userId", "name email");
     }
     if (!tickets || tickets.length === 0) {
-      return res.json({ message: "there are no tickets available" });
+      return res.json({ tickets: [] });
     }
     res.json({ tickets });
   } catch (error) {

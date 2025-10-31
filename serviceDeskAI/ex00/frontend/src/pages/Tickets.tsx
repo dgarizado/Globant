@@ -32,7 +32,7 @@ export default function Tickets() {
   }, []);
 
   if (loading) return <div className="muted">Loading tickets…</div>;
-  if (!tickets || tickets.length === 0)
+  if (!tickets || tickets.length === 0 )
     return <div className="muted">No tickets yet.</div>;
 
   return (
