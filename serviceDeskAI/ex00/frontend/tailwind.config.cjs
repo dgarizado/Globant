@@ -4,7 +4,13 @@ module.exports = {
     './src/**/*.{js,ts,jsx,tsx,html}'
   ],
   theme: {
-    extend: {}
+    extend: {
+      colors: {
+        // Allow using the CSS variable --app-bg as a Tailwind color: `bg-app-bg`
+        'app-bg': 'var(--app-bg)',
+        'app-foreground': 'var(--app-foreground)'
+      }
+    }
   },
   // Temporary safelist for dev: ensures commonly-used dynamic or edge-case
   // utilities are always generated while we diagnose why some color

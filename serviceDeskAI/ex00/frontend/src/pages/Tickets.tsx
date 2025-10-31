@@ -36,12 +36,15 @@ export default function Tickets() {
     return <div className="muted">No tickets yet.</div>;
 
   return (
+    //create a dropdown list for filtering tickets by status
+    
     <ul className="space-y-3">
+      
       {tickets.map((t) => (
         <li key={t._id} className="ticket-card">
           <div className="flex justify-between">
             <h3 className="font-medium">{t.title}</h3>
-            <span className="text-xs text-slate-500">{t.status || 'open'}</span>
+            <span className="text-xs text-slate-500">{t.status}</span>
           </div>
           {t.description && <p className="muted mt-1">{t.description}</p>}
           <div className="text-xs text-slate-400 mt-2">{t.createdAt}</div>

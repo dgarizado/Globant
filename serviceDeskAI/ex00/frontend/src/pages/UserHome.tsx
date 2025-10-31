@@ -90,7 +90,10 @@ export default function UserHome({ user }: { user?: User }) {
   const filtered = () => {
     if (!tickets) return [];
     if (!queryId.trim()) return tickets;
-    return tickets.filter((t: any) => String(t._id).includes(queryId.trim()));
+    const query = queryId.trim().toLowerCase();
+    // Filter by status
+    return tickets.filter((t: any) => (t.status || 'open').toLowerCase() === query);
+    
   };
 
   return (
@@ -166,8 +169,13 @@ export default function UserHome({ user }: { user?: User }) {
             <h3 className="font-medium">Your tickets</h3>
             <div className="mt-3 space-y-2">
               <label className="block">
-                <span className="text-xs text-slate-600">Filter by ID</span>
-                <input className="input" value={queryId} onChange={(e) => setQueryId(e.target.value)} placeholder="part of id or full id" />
+                <span className="text-xs text-slate-600">Filter by status</span>
+                <select className="mt-1 block w-full rounded-md border px-3 py-2" value={queryId} onChange={(e) => setQueryId(e.target.value)}>
+                  <option value="">All statuses</option>
+                  <option value="open">Open</option>
+                  <option value="in-progress">In Progress</option>
+                  <option value="closed">Closed</option>
+                </select>
               </label>
 
               {loadingTickets ? (
